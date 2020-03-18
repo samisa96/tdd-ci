@@ -32,6 +32,62 @@ class MyTestCase(unittest.TestCase):
 
         # assert
         self.assertDictEqual(expected_item, date_result)
+	expected_item_base= {"date": "2020-03-11T15:41:38-00:00",
+                         "location": {"geonameid": 295629, "geo": "geoname", "country": "Israel", "city": "Ashdod",
+                                      "latitude": 31.79213, "title": "Ashdod, Southern District, Israel",
+                                      "tzid": "Asia/Jerusalem", "admin1": "Southern District", "longitude": 34.64966},
+                         "longitude": 34.64966,
+                         "link": "https://www.hebcal.com/hebcal/?v=1&maj=on&min=on&mod=on&nx=on&year=2000&month=2&ss=on&mf=on&c=on&geo=geoname&m=50&s=on&geonameid=295629&i=on",
+                         "latitude": 31.79213, "title": "Hebcal February 2000 Ashdod, Southern District, Israel",
+                         "items": [{"date": "2000-02-04T16:59:00+02:00", "hebrew": "הדלקת נרות",
+                                    "title": "Candle lighting: 4:59pm", "category": "candles"},
+                                   {"date": "2000-02-05", "hebrew": "פרשת משפטים",
+                                    "link": "https://www.hebcal.com/sedrot/mishpatim", "title": "Parashat Mishpatim",
+                                    "category": "parashat"},
+                                   {"date": "2000-02-05T18:08:00+02:00", "hebrew": "הבדלה - 50 דקות",
+                                    "title": "Havdalah (50 min): 6:08pm", "category": "havdalah"},
+                                   {"hebrew": "ראש חודש אדר א׳", "memo": "Beginning of new Hebrew month of Adar",
+                                    "date": "2000-02-06", "category": "roshchodesh",
+                                    "link": "https://www.hebcal.com/holidays/rosh-chodesh-adar",
+                                    "title": "Rosh Chodesh Adar I"},
+                                   {"hebrew": "ראש חודש אדר א׳", "memo": "Beginning of new Hebrew month of Adar",
+                                    "date": "2000-02-07", "category": "roshchodesh", "title": "Rosh Chodesh Adar I",
+                                    "link": "https://www.hebcal.com/holidays/rosh-chodesh-adar"},
+                                   {"title": "Candle lighting: 5:06pm", "category": "candles",
+                                    "date": "2000-02-11T17:06:00+02:00", "hebrew": "הדלקת נרות"},
+                                   {"hebrew": "פרשת תרומה", "date": "2000-02-12", "category": "parashat",
+                                    "link": "https://www.hebcal.com/sedrot/terumah", "title": "Parashat Terumah"},
+                                   {"title": "Havdalah (50 min): 6:14pm", "category": "havdalah",
+                                    "date": "2000-02-12T18:14:00+02:00", "hebrew": "הבדלה - 50 דקות"},
+                                   {"hebrew": "הדלקת נרות", "date": "2000-02-18T17:12:00+02:00", "category": "candles",
+                                    "title": "Candle lighting: 5:12pm"},
+                                   {"category": "parashat", "link": "https://www.hebcal.com/sedrot/tetzaveh",
+                                    "title": "Parashat Tetzaveh", "hebrew": "פרשת תצוה", "date": "2000-02-19"},
+                                   {"title": "Havdalah (50 min): 6:20pm", "category": "havdalah",
+                                    "date": "2000-02-19T18:20:00+02:00", "hebrew": "הבדלה - 50 דקות"},
+                                   {"hebrew": "פורים קטן",
+                                    "memo": "Minor Purim celebration during Adar I on leap years", "date": "2000-02-20",
+                                    "category": "holiday", "subcat": "minor",
+                                    "link": "https://www.hebcal.com/holidays/purim-katan", "title": "Purim Katan"},
+                                   {"title": "Candle lighting: 5:17pm", "category": "candles",
+                                    "date": "2000-02-25T17:17:00+02:00", "hebrew": "הדלקת נרות"},
+                                   {"category": "parashat", "title": "Parashat Ki Tisa",
+                                    "link": "https://www.hebcal.com/sedrot/kitisa", "hebrew": "פרשת כי תשא",
+                                    "date": "2000-02-26"},
+                                   {"title": "Havdalah (50 min): 6:26pm", "category": "havdalah",
+                                    "date": "2000-02-26T18:26:00+02:00", "hebrew": "הבדלה - 50 דקות"}]}
+
+
+    def test_specific_date_holidays_test1(self,base=expected_item_base):
+        # assume
+        stub = {"month": 2,"year": 2000}
+        # expected
+        expected_item=base["items"]
+                       
+        # action
+        date_result = Jewishcal.specific_date_holiday(**stub)
+        # assert
+        self.assertEqual(expected_item[0], date_result[0])
 
 if __name__ == '__main__':
     unittest.main()
