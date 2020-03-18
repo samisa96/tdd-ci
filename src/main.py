@@ -1,8 +1,6 @@
 import os
 from time import sleep
 from src.Jewishcal import Jewishcal
-
-
 def clear():
     sleep(3)
     os.system('clear')
@@ -13,7 +11,6 @@ def close():
     print("program has been closed")
     sleep(1)
     exit(0)
-
 
 def info_request():
     info = input('input "all" for all events,"h" for holidays, "c" for candles lighting and "p" for parashat')
@@ -33,7 +30,7 @@ def main():
         """)
 
         menu = input()
-        # clear()  # clear the screen
+       # clear()  # clear the screen
 
         switcher = {
             1: lambda x: info_request(),
