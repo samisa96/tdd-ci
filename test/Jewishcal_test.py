@@ -2,37 +2,41 @@ import unittest
 from unittest.mock import Mock, patch, MagicMock
 from src.Jewishcal import Jewishcal
 
-
 class MyTestCase(unittest.TestCase):
 
     @patch('src.Jewishcal.requests.get')
-    def test_input_date(self, mockJson):
-        jewishcal_data = {"location": {"geo": "none"},
-                          "link": "https://www.hebcal.com",
-                          "title": "Hebcal February 2000",
-                          "date": "2020-03-15T15:44:11-00:00",
-                          "items":
-                              {"category": "holiday", "hebrew": "בדיקות", "link": "https://www.hebcal.com",
-                               "date": "2000-02-02", "title": "testing holiday"}
-                          }
+    def test_input_date(self,mockJson):
+        jewishcal_data={"location": {"geo": "none"},
+             "link": "https://www.hebcal.com",
+             "title": "Hebcal February 2000",
+             "date": "2020-03-15T15:44:11-00:00",
+             "items":
+                {"category": "holiday", "hebrew": "בדיקות", "link": "https://www.hebcal.com",
+                 "date": "2000-02-02", "title": "testing holiday"}
+             }
+
+
 
         # Configure the mock to return a response with an OK status code. Also, the mock should have
         # a `json()` method that returns.
         mockJson.return_value = Mock(ok=True)
         mockJson.return_value.json.return_value = jewishcal_data
         # assume
-        stub = {"month": 2, "year": 2000}
+        stub = {"month": 2,"year": 2000}
 
         # expected
         expected_item = {"category": "holiday", "hebrew": "בדיקות", "link": "https://www.hebcal.com",
-                         "date": "2000-02-02", "title": "testing holiday"}
+                 "date": "2000-02-02", "title": "testing holiday"}
 
         # action
         date_result = Jewishcal.specific_date_holiday(**stub)
 
         # assert
-        self.assertDictEqual(expected_item, date_result)
-	expected_item_base= {"date": "2020-03-11T15:41:38-00:00",
+        self.assertDictEqual(expected_item,date_result)
+
+
+
+    expected_item_base= {"date": "2020-03-11T15:41:38-00:00",
                          "location": {"geonameid": 295629, "geo": "geoname", "country": "Israel", "city": "Ashdod",
                                       "latitude": 31.79213, "title": "Ashdod, Southern District, Israel",
                                       "tzid": "Asia/Jerusalem", "admin1": "Southern District", "longitude": 34.64966},
@@ -88,7 +92,8 @@ class MyTestCase(unittest.TestCase):
         date_result = Jewishcal.specific_date_holiday(**stub)
         # assert
         self.assertEqual(expected_item[0], date_result[0])
-	def test_Rest_times_date(self):
+
+    def test_Rest_times_date(self):
         # assume
         stub = {"month": "x", "year": 2000}
         # expected
@@ -98,7 +103,7 @@ class MyTestCase(unittest.TestCase):
         date_result = Jewishcal.rest_times(**stub)
         # assert
         self.assertEqual(expected_item, date_result['title'])
-	
+
     def test_display_holidays_test1(self,base=expected_item_base):
         # assume
         stub = {"month": 2, "year": 2000}
@@ -113,7 +118,7 @@ class MyTestCase(unittest.TestCase):
         date_result = Jewishcal.display_holidays(**stub)
         # assert
         self.assertEqual(expected_holidays, date_result)
-	def test_display_candles_test1(self,base=expected_item_base):
+    def test_display_candles_test1(self,base=expected_item_base):
         # assume
         stub = {"month": 2, "year": 2000}
         # expected
@@ -127,7 +132,8 @@ class MyTestCase(unittest.TestCase):
         date_result = Jewishcal.display_candles(**stub)
         # assert
         self.assertEqual(expected_holidays, date_result)
-	def test_display_parashat_test1(self, base=expected_item_base):
+
+    def test_display_parashat_test1(self, base=expected_item_base):
         # assume
         stub = {"month": 2, "year": 2000}
         # expected
@@ -141,7 +147,8 @@ class MyTestCase(unittest.TestCase):
         date_result = Jewishcal.display_parashat(**stub)
         # assert
         self.assertEqual(expected_holidays, date_result)
-	def convert_test1(self):
+
+    def test_convert_test1(self):
         # assume
         stub = {"year":2000, "month": 2, "day":20}
         #excpeted
@@ -150,7 +157,8 @@ class MyTestCase(unittest.TestCase):
         converion_result=Jewishcal.convert_to_hebrew(**stub)
         #assert
         self.assertEqual(expected_item,converion_result)
-	def convert_test2(self):
+
+    def test_convert_test2(self):
         # assume
         stub = {"year":"x", "month": 2, "day":20}
         #excpeted
@@ -159,7 +167,8 @@ class MyTestCase(unittest.TestCase):
         converion_result=Jewishcal.convert_to_hebrew(**stub)
         #assert
         self.assertEqual(expected_item,converion_result)
-	 def convert_test3(self):
+
+    def test_convert_test3(self):
         # assume
         stub = {"year": 2000, "month":"x", "day": 20}
         # excpeted
@@ -168,7 +177,8 @@ class MyTestCase(unittest.TestCase):
         converion_result = Jewishcal.convert_to_hebrew(**stub)
         # assert
         self.assertEqual(expected_item, converion_result)
-     def convert_test_len(self,mockC):
+    @patch("src.Jewishcal.Jewishcal.convert_to_hebrew")
+    def test_convert_test_len(self,mockC):
         mockC.return_value.__len__.return_value=8
 
         #assume
@@ -180,7 +190,6 @@ class MyTestCase(unittest.TestCase):
         print(converion_result)
         # assert
         self.assertEqual(expected_len, len(converion_result))
-
 
 
 if __name__ == '__main__':
