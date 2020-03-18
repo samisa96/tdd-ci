@@ -159,6 +159,16 @@ class MyTestCase(unittest.TestCase):
         converion_result=Jewishcal.convert_to_hebrew(**stub)
         #assert
         self.assertEqual(expected_item,converion_result)
+	 def convert_test3(self):
+        # assume
+        stub = {"year": 2000, "month":"x", "day": 20}
+        # excpeted
+        expected_item = {"error":"Gregorian month must be numeric"}
+        # action
+        converion_result = Jewishcal.convert_to_hebrew(**stub)
+        # assert
+        self.assertEqual(expected_item, converion_result)
+    
 
 
 if __name__ == '__main__':
