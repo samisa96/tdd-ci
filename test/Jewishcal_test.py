@@ -88,6 +88,16 @@ class MyTestCase(unittest.TestCase):
         date_result = Jewishcal.specific_date_holiday(**stub)
         # assert
         self.assertEqual(expected_item[0], date_result[0])
+	def test_Rest_times_date(self):
+        # assume
+        stub = {"month": "x", "year": 2000}
+        # expected
+        expected_item = "Hebcal 2000 Ashdod, Southern District, Israel"
+
+        # action
+        date_result = Jewishcal.rest_times(**stub)
+        # assert
+        self.assertEqual(expected_item, date_result['title'])
 
 if __name__ == '__main__':
     unittest.main()
