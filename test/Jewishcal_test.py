@@ -113,6 +113,20 @@ class MyTestCase(unittest.TestCase):
         date_result = Jewishcal.display_holidays(**stub)
         # assert
         self.assertEqual(expected_holidays, date_result)
+	  def test_display_candles_test1(self,base=expected_item_base):
+        # assume
+        stub = {"month": 2, "year": 2000}
+        # expected
+        expected_item = base["items"]
+        expected_holidays=[]
+        for item in expected_item:
+            if item['category'] == "candles":
+                expected_holidays.append({k:item[k] for k in item.keys() and ['date','title']})
+
+        # action
+        date_result = Jewishcal.display_candles(**stub)
+        # assert
+        self.assertEqual(expected_holidays, date_result)
 
 if __name__ == '__main__':
     unittest.main()
