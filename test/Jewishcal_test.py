@@ -142,6 +142,5 @@ class MyTestCase(unittest.TestCase):
         # assert
         self.assertEqual(expected_holidays, date_result)
 
-
 if __name__ == '__main__':
     unittest.main()
