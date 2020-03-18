@@ -168,7 +168,19 @@ class MyTestCase(unittest.TestCase):
         converion_result = Jewishcal.convert_to_hebrew(**stub)
         # assert
         self.assertEqual(expected_item, converion_result)
-    
+     def convert_test_len(self,mockC):
+        mockC.return_value.__len__.return_value=8
+
+        #assume
+        stub = {"year": 2000, "month": "x", "day": 20}
+        # excpeted
+        expected_len = 8
+        # action
+        converion_result = Jewishcal.convert_to_hebrew(**stub)
+        print(converion_result)
+        # assert
+        self.assertEqual(expected_len, len(converion_result))
+
 
 
 if __name__ == '__main__':
