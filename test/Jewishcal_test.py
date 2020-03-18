@@ -113,7 +113,7 @@ class MyTestCase(unittest.TestCase):
         date_result = Jewishcal.display_holidays(**stub)
         # assert
         self.assertEqual(expected_holidays, date_result)
-	  def test_display_candles_test1(self,base=expected_item_base):
+	def test_display_candles_test1(self,base=expected_item_base):
         # assume
         stub = {"month": 2, "year": 2000}
         # expected
@@ -127,7 +127,7 @@ class MyTestCase(unittest.TestCase):
         date_result = Jewishcal.display_candles(**stub)
         # assert
         self.assertEqual(expected_holidays, date_result)
-	 def test_display_parashat_test1(self, base=expected_item_base):
+	def test_display_parashat_test1(self, base=expected_item_base):
         # assume
         stub = {"month": 2, "year": 2000}
         # expected
@@ -141,6 +141,15 @@ class MyTestCase(unittest.TestCase):
         date_result = Jewishcal.display_parashat(**stub)
         # assert
         self.assertEqual(expected_holidays, date_result)
+	def convert_test1(self):
+        # assume
+        stub = {"year":2000, "month": 2, "day":20}
+        #excpeted
+        expected_item={"gy":2000,"gm":2,"gd":20,"hy":5760,"hm":"Adar I","hd":14,"hebrew":"\u05d9\u05f4\u05d3 \u05d1\u05bc\u05b7\u05d0\u05b2\u05d3\u05b8\u05e8 \u05d0\u05f3 \u05ea\u05e9\u05f4\u05e1","events":["Parashat Ki Tisa","Purim Katan"]}
+        #action
+        converion_result=Jewishcal.convert_to_hebrew(**stub)
+        #assert
+        self.assertEqual(expected_item,converion_result)
 
 if __name__ == '__main__':
     unittest.main()
